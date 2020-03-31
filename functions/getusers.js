@@ -1,9 +1,7 @@
 const axios = require('axios');
 
 exports.handler = function(event, context, callback){
-  const API_URL = 'https://api.github.com/users';
-  const API_CLIENT_ID = '3492ae1d1b982a32b820';
-  const API_CLIENT_SECRET = '50896911dec05c7c649f3ca25a2ec5e820888eea';
+  const { API_URL, API_CLIENT_ID, API_CLIENT_SECRET } = process.env;
 
   const URL = `${API_URL}?client_id=${API_CLIENT_ID}&client_secret=${API_CLIENT_SECRET}`;
 
@@ -11,6 +9,11 @@ exports.handler = function(event, context, callback){
 const send = body => {
   callback(null, {
     statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers':
+      'Origin, X-Requested-With, Content-Type, Accept'
+    },
     body: JSON.stringify(body)
   });
 }
